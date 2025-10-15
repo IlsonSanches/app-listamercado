@@ -1,0 +1,10 @@
+<!-- Este arquivo precisa ser uma imagem PNG real.
+Para criar os ícones, você pode:
+
+1. Usar o arquivo generate-icons.html na pasta scripts/
+2. Ou usar um serviço online como https://realfavicongenerator.net/
+3. Ou criar manualmente uma imagem 180x180px com fundo verde (#4CAF50) e o emoji 🛒
+
+Por enquanto, o app funcionará sem estes ícones, mas para uma melhor experiência PWA,
+recomendo gerá-los antes de fazer o deploy. -->
+

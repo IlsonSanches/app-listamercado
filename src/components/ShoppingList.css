@@ -1,0 +1,78 @@
+.shopping-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: white;
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.empty-state p {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.empty-subtitle {
+  font-size: 16px !important;
+  opacity: 0.8;
+  font-weight: 400 !important;
+}
+
+.clear-button {
+  margin-top: 16px;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #f44336, #d32f2f);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
+}
+
+.clear-button:active {
+  transform: scale(0.98);
+}
+
+.clear-button:hover {
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
+}
+
+@media (max-width: 768px) {
+  .shopping-list {
+    gap: 10px;
+  }
+
+  .empty-state {
+    padding: 40px 20px;
+  }
+
+  .empty-icon {
+    font-size: 48px;
+  }
+
+  .empty-state p {
+    font-size: 18px;
+  }
+
+  .empty-subtitle {
+    font-size: 14px !important;
+  }
+
+  .clear-button {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+}
+
