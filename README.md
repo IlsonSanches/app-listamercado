@@ -2,6 +2,15 @@
 
 Um aplicativo simples e funcional para criar e compartilhar listas de compras de mercado com a família em tempo real.
 
+## 🌟 Status do Projeto
+
+✅ **PROJETO EM PRODUÇÃO E FUNCIONANDO!**
+
+- 🔗 **Repositório**: [github.com/IlsonSanches/app-listamercado](https://github.com/IlsonSanches/app-listamercado)
+- 🚀 **Deploy**: Vercel (Em produção)
+- 🔥 **Firebase**: Configurado e funcionando
+- 📱 **PWA**: Pronto para instalação no celular
+
 ## 📱 Funcionalidades
 
 - ✅ Adicionar itens com quantidade
