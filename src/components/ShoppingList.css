@@ -4,6 +4,28 @@
   gap: 12px;
 }
 
+.category-group {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+
+.category-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  opacity: 0.9;
+  margin: 4px 2px 8px 2px;
+  text-transform: uppercase;
+}
+
+.empty-category {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  padding: 4px 8px 8px 8px;
+}
+
 .empty-state {
   text-align: center;
   padding: 60px 20px;
@@ -75,4 +97,3 @@
     font-size: 15px;
   }
 }
-
