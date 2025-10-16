@@ -1,72 +1,238 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Ícones</title>
-</head>
-<body>
-    <h1>Gerador de Ícones PWA</h1>
-    <p>Abra este arquivo no navegador e clique nos botões para baixar os ícones:</p>
-    <button onclick="downloadIcon(192)">Baixar icon-192x192.png</button>
-    <button onclick="downloadIcon(512)">Baixar icon-512x512.png</button>
-    <br><br>
-    <canvas id="canvas" style="border: 1px solid #ccc;"></canvas>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Ícones - Lista de Compras</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .icon-preview {
+        display: flex;
+        gap: 20px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+      }
+      .icon-item {
+        text-align: center;
+        padding: 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        background: white;
+      }
+      .icon-item h3 {
+        margin: 10px 0 5px 0;
+        color: #333;
+      }
+      .icon-item p {
+        margin: 0;
+        color: #666;
+        font-size: 12px;
+      }
+      canvas {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      .instructions {
+        background: #e8f5e8;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+      .instructions h3 {
+        margin-top: 0;
+        color: #2e7d32;
+      }
+      .download-btn {
+        background: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      .download-btn:hover {
+        background: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🛒 Gerador de Ícones - Lista de Compras</h1>
+
+      <div class="instructions">
+        <h3>📱 Instruções para iPhone:</h3>
+        <ol>
+          <li>Baixe os ícones abaixo clicando nos botões "Download"</li>
+          <li>
+            Salve os arquivos na pasta <code>public/</code> do seu projeto
+          </li>
+          <li>Faça deploy do app</li>
+          <li>No iPhone, abra o app no Safari</li>
+          <li>Toque no botão "Compartilhar" → "Adicionar à Tela Inicial"</li>
+          <li>O ícone personalizado aparecerá na tela inicial!</li>
+        </ol>
+      </div>
+
+      <div class="icon-preview">
+        <div class="icon-item">
+          <h3>192x192</h3>
+          <canvas id="icon192" width="192" height="192"></canvas>
+          <p>Para PWA</p>
+          <button
+            class="download-btn"
+            onclick="downloadIcon('icon192', 'icon-192x192.png')"
+          >
+            Download
+          </button>
+        </div>
+
+        <div class="icon-item">
+          <h3>512x512</h3>
+          <canvas id="icon512" width="512" height="512"></canvas>
+          <p>Para PWA</p>
+          <button
+            class="download-btn"
+            onclick="downloadIcon('icon512', 'icon-512x512.png')"
+          >
+            Download
+          </button>
+        </div>
+
+        <div class="icon-item">
+          <h3>180x180</h3>
+          <canvas id="icon180" width="180" height="180"></canvas>
+          <p>Apple Touch Icon</p>
+          <button
+            class="download-btn"
+            onclick="downloadIcon('icon180', 'apple-touch-icon.png')"
+          >
+            Download
+          </button>
+        </div>
+      </div>
+    </div>
 
     <script>
-        function generateIcon(size) {
-            const canvas = document.getElementById('canvas');
-            canvas.width = size;
-            canvas.height = size;
-            const ctx = canvas.getContext('2d');
+      function drawIcon(canvas, size) {
+        const ctx = canvas.getContext("2d");
+        const centerX = size / 2;
+        const centerY = size / 2;
+        const radius = size * 0.4;
 
-            // Fundo gradiente verde
-            const gradient = ctx.createLinearGradient(0, 0, size, size);
-            gradient.addColorStop(0, '#4CAF50');
-            gradient.addColorStop(1, '#45a049');
-            ctx.fillStyle = gradient;
-            
-            // Borda arredondada
-            const radius = size * 0.15;
-            ctx.beginPath();
-            ctx.moveTo(radius, 0);
-            ctx.lineTo(size - radius, 0);
-            ctx.quadraticCurveTo(size, 0, size, radius);
-            ctx.lineTo(size, size - radius);
-            ctx.quadraticCurveTo(size, size, size - radius, size);
-            ctx.lineTo(radius, size);
-            ctx.quadraticCurveTo(0, size, 0, size - radius);
-            ctx.lineTo(0, radius);
-            ctx.quadraticCurveTo(0, 0, radius, 0);
-            ctx.closePath();
-            ctx.fill();
+        // Limpar canvas
+        ctx.clearRect(0, 0, size, size);
 
-            // Emoji do carrinho
-            ctx.font = `${size * 0.6}px Arial`;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText('🛒', size / 2, size / 2);
+        // Fundo circular com gradiente
+        const gradient = ctx.createLinearGradient(0, 0, size, size);
+        gradient.addColorStop(0, "#4CAF50");
+        gradient.addColorStop(1, "#45a049");
 
-            return canvas;
-        }
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = size * 0.02;
+        ctx.stroke();
 
-        function downloadIcon(size) {
-            const canvas = generateIcon(size);
-            canvas.toBlob(function(blob) {
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `icon-${size}x${size}.png`;
-                a.click();
-                URL.revokeObjectURL(url);
-            });
-        }
+        // Escalar elementos baseado no tamanho
+        const scale = size / 512;
 
-        // Gera preview do ícone 192
-        window.onload = function() {
-            generateIcon(192);
-        }
+        // Carrinho de compras
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.scale(scale, scale);
+
+        // Base do carrinho
+        ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+        ctx.strokeStyle = "#4CAF50";
+        ctx.lineWidth = 3;
+        ctx.fillRect(-60, -20, 120, 80);
+        ctx.strokeRect(-60, -20, 120, 80);
+
+        // Rodas
+        ctx.fillStyle = "#666";
+        ctx.beginPath();
+        ctx.arc(-40, 70, 12, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(40, 70, 12, 0, 2 * Math.PI);
+        ctx.fill();
+
+        // Cabo do carrinho
+        ctx.fillStyle = "#4CAF50";
+        ctx.fillRect(60, -40, 8, 60);
+        ctx.fillRect(65, -45, 20, 8);
+
+        // Itens no carrinho
+        ctx.fillStyle = "#FF9800";
+        ctx.beginPath();
+        ctx.arc(-30, 0, 8, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.fillStyle = "#2196F3";
+        ctx.beginPath();
+        ctx.arc(0, -10, 6, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.fillStyle = "#E91E63";
+        ctx.beginPath();
+        ctx.arc(20, 5, 7, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.fillStyle = "#9C27B0";
+        ctx.beginPath();
+        ctx.arc(-10, 15, 5, 0, 2 * Math.PI);
+        ctx.fill();
+
+        // Lista de compras
+        ctx.fillStyle = "#fff";
+        ctx.strokeStyle = "#4CAF50";
+        ctx.lineWidth = 2;
+        ctx.fillRect(-50, -60, 100, 20);
+        ctx.strokeRect(-50, -60, 100, 20);
+
+        ctx.fillStyle = "#4CAF50";
+        ctx.fillRect(-45, -55, 90, 2);
+        ctx.fillRect(-40, -50, 80, 2);
+        ctx.fillRect(-35, -45, 70, 2);
+
+        ctx.restore();
+
+        // Texto "Lista"
+        ctx.fillStyle = "#fff";
+        ctx.font = `bold ${size * 0.06}px Arial`;
+        ctx.textAlign = "center";
+        ctx.fillText("Lista", centerX, centerY + radius + size * 0.15);
+      }
+
+      function downloadIcon(canvasId, filename) {
+        const canvas = document.getElementById(canvasId);
+        const link = document.createElement("a");
+        link.download = filename;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      }
+
+      // Desenhar ícones quando a página carregar
+      window.onload = function () {
+        drawIcon(document.getElementById("icon192"), 192);
+        drawIcon(document.getElementById("icon512"), 512);
+        drawIcon(document.getElementById("icon180"), 180);
+      };
     </script>
-</body>
+  </body>
 </html>
-

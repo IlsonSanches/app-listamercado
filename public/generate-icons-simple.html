@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gerador de Ícones PNG</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .icon-container { margin: 20px 0; }
+        canvas { border: 1px solid #ccc; margin: 10px; }
+        button { background: #4CAF50; color: white; border: none; padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Gerador de Ícones PNG</h1>
+    <p>Clique nos botões para baixar os ícones PNG:</p>
+    
+    <div class="icon-container">
+        <h3>192x192</h3>
+        <canvas id="canvas192" width="192" height="192"></canvas>
+        <br>
+        <button onclick="downloadIcon('canvas192', 'icon-192x192.png')">Download 192x192</button>
+    </div>
+    
+    <div class="icon-container">
+        <h3>512x512</h3>
+        <canvas id="canvas512" width="512" height="512"></canvas>
+        <br>
+        <button onclick="downloadIcon('canvas512', 'icon-512x512.png')">Download 512x512</button>
+    </div>
+    
+    <div class="icon-container">
+        <h3>180x180 (Apple Touch Icon)</h3>
+        <canvas id="canvas180" width="180" height="180"></canvas>
+        <br>
+        <button onclick="downloadIcon('canvas180', 'apple-touch-icon.png')">Download 180x180</button>
+    </div>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const radius = size * 0.4;
+            
+            // Limpar canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Fundo circular com gradiente
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#4CAF50');
+            gradient.addColorStop(1, '#45a049');
+            
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = size * 0.02;
+            ctx.stroke();
+            
+            // Escalar elementos baseado no tamanho
+            const scale = size / 512;
+            
+            // Carrinho de compras
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.scale(scale, scale);
+            
+            // Base do carrinho
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.strokeStyle = '#4CAF50';
+            ctx.lineWidth = 3;
+            ctx.fillRect(-60, -20, 120, 80);
+            ctx.strokeRect(-60, -20, 120, 80);
+            
+            // Rodas
+            ctx.fillStyle = '#666';
+            ctx.beginPath();
+            ctx.arc(-40, 70, 12, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(40, 70, 12, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Cabo do carrinho
+            ctx.fillStyle = '#4CAF50';
+            ctx.fillRect(60, -40, 8, 60);
+            ctx.fillRect(65, -45, 20, 8);
+            
+            // Itens no carrinho
+            ctx.fillStyle = '#FF9800';
+            ctx.beginPath();
+            ctx.arc(-30, 0, 8, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.fillStyle = '#2196F3';
+            ctx.beginPath();
+            ctx.arc(0, -10, 6, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.fillStyle = '#E91E63';
+            ctx.beginPath();
+            ctx.arc(20, 5, 7, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.fillStyle = '#9C27B0';
+            ctx.beginPath();
+            ctx.arc(-10, 15, 5, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Lista de compras
+            ctx.fillStyle = '#fff';
+            ctx.strokeStyle = '#4CAF50';
+            ctx.lineWidth = 2;
+            ctx.fillRect(-50, -60, 100, 20);
+            ctx.strokeRect(-50, -60, 100, 20);
+            
+            ctx.fillStyle = '#4CAF50';
+            ctx.fillRect(-45, -55, 90, 2);
+            ctx.fillRect(-40, -50, 80, 2);
+            ctx.fillRect(-35, -45, 70, 2);
+            
+            ctx.restore();
+            
+            // Texto "Lista"
+            ctx.fillStyle = '#fff';
+            ctx.font = `bold ${size * 0.06}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.fillText('Lista', centerX, centerY + radius + size * 0.15);
+        }
+        
+        function downloadIcon(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Desenhar ícones quando a página carregar
+        window.onload = function() {
+            drawIcon(document.getElementById('canvas192'), 192);
+            drawIcon(document.getElementById('canvas512'), 512);
+            drawIcon(document.getElementById('canvas180'), 180);
+        };
+    </script>
+</body>
+</html>
