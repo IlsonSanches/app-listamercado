@@ -25,10 +25,34 @@ body {
 /* Prevent zoom on input focus on iOS */
 input, select, textarea {
   font-size: 16px;
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 
 /* Disable pull-to-refresh */
 body {
   overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Improve touch targets */
+button, input, select, textarea {
+  touch-action: manipulation;
+}
+
+/* Prevent text selection on UI elements */
+button, .checkbox, .item-content {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Safe area support for iOS */
+@supports (padding: max(0px)) {
+  .app {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
 }
 

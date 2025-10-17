@@ -33,10 +33,12 @@
 @media (max-width: 768px) {
   .header {
     padding: 16px 12px;
+    margin-bottom: 20px;
   }
 
   .header h1 {
     font-size: 24px;
+    margin-bottom: 10px;
   }
 
   .stats {
@@ -49,6 +51,32 @@
 
   .stat strong {
     font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 8px;
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .stats {
+    gap: 8px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat {
+    font-size: 12px;
+  }
+
+  .stat strong {
+    font-size: 14px;
   }
 }
 
